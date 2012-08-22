@@ -36,4 +36,8 @@ public class Dept {
 			return false;
 		return true;
 	}
+
+	public String getDeptCode() {
+		return this.deptCode;
+	}
 }
