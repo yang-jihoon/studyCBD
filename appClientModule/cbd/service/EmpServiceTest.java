@@ -4,8 +4,8 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cbd.dao.DBManager;
@@ -14,8 +14,8 @@ import cbd.domain.Emp;
 
 public class EmpServiceTest {
 	
-	@Before
-	public void beforeTest() throws Exception {
+	@BeforeClass
+	public static void beforeTest() throws Exception {
 		DBManager.execute("INSERT INTO T_DEPT VALUES ('D001', '경리과', '본사12층')");
 		DBManager.execute("INSERT INTO T_DEPT VALUES ('D002', '총무과', '본사11층')");
 		
@@ -26,8 +26,8 @@ public class EmpServiceTest {
 		DBManager.execute("INSERT INTO T_EMP VALUES ('E00005', '장길산', '사원', 'D002')");
 	}
 	
-	@After
-	public void afterTest() throws Exception {
+	@AfterClass
+	public static void afterTest() throws Exception {
 
 		DBManager.execute("DELETE FROM T_DEPT");
 		DBManager.execute("DELETE FROM T_EMP");
