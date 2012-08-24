@@ -17,7 +17,7 @@ public class DeptMapper extends DBMapper{
 	
 	protected String getFindByKeySql() {
 		return selectSql +
-				"and t_dept.dept_code = ?";
+				" where t_dept.dept_code = ?";
 	}
 	
 	public Dept load(ResultSet rs) throws Exception {		

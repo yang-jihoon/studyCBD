@@ -22,4 +22,20 @@ public class Emp extends DomainObject{
 	public void setDept(Dept dept) {
 		this.dept = dept;
 	}
+
+	public String printForMove() {
+		System.out.println(this.toString());
+		return this.toString();		
+	}
+
+	@Override
+	public String toString() {
+		return "Emp [empNo=" + empNo + ", empName=" + empName + ", position="
+				+ position + ", deptAddress=" + dept.getAddress() + "]";
+	}
+
+	public Dept getDept() {
+		return this.dept;
+	}
+	
 }

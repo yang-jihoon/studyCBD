@@ -25,7 +25,7 @@ public class EmpMapper extends DBMapper {
 	
 	protected String getFindByKeySql() {
 		return selectSql +
-				"and t_emp.dept_code = ?";
+				"and t_emp.emp_no = ?";
 	}
 
 	public DomainObject load(ResultSet rs) throws Exception {
