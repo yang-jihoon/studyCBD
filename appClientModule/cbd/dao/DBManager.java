@@ -21,6 +21,11 @@ public class DBManager {
 		return conn;
 	}
 
+	public static void closeConnection(ResultSet rs) throws SQLException {
+		rs.close();
+		
+	}
+
 	public static void closeConnection(Connection conn, PreparedStatement pstmt, ResultSet rs) throws SQLException {
 		conn.close();
 		pstmt.close();
