@@ -9,9 +9,11 @@ import cbd.domain.DomainKey;
 import cbd.domain.DomainObject;
 import cbd.service.Mapper;
 import cbd.service.QuerySource;
+import cbd.service.TxManager;
 
 public abstract class DBMapper implements Mapper {
-	public abstract DomainObject load(ResultSet rs) throws Exception;
+	public abstract DomainObject doLoad(ResultSet rs) throws Exception;
+	public abstract DomainKey getKey(ResultSet rs) throws Exception;
 	protected abstract String getFindAllSql();
 	protected abstract String getFindByKeySql();
 	
@@ -22,6 +24,18 @@ public abstract class DBMapper implements Mapper {
 			pstmt.setObject((i+1), source.getParameter(i));
 		}
 		return pstmt.executeQuery();
+	}
+	
+	public DomainObject load(ResultSet rs) throws Exception {
+		DomainKey key = getKey(rs);
+		
+		if (TxManager.getTxManager().containsInPool(key)) {
+			return TxManager.getTxManager().getObjectFromPool(key);
+		} else {			
+			DomainObject result = doLoad(rs);
+			TxManager.getTxManager().addObjectToPool(result);
+			return result;
+		}		
 	}
 
 	protected List find(QuerySource source) throws Exception {

@@ -1,8 +1,11 @@
 package cbd.service;
 
 import java.sql.ResultSet;
+
 import cbd.dao.DBMapper;
 import cbd.domain.Dept;
+import cbd.domain.DomainKey;
+import cbd.domain.EmpKey;
 
 public class DeptMapper extends DBMapper{
 	protected static final String selectSql = "select " +
@@ -20,8 +23,12 @@ public class DeptMapper extends DBMapper{
 				" where t_dept.dept_code = ?";
 	}
 	
-	public Dept load(ResultSet rs) throws Exception {		
+	public Dept doLoad(ResultSet rs) throws Exception {		
 		return new Dept( rs.getString("t_dept_dept_code"), rs.getString("t_dept_dept_name"), rs.getString("t_dept_address"));
+	}
+	
+	public DomainKey getKey(ResultSet rs) throws Exception {
+		return new EmpKey(rs.getString("t_dept_dept_code"));
 	}
 
 }

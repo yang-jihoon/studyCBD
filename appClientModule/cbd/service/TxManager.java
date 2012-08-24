@@ -6,10 +6,22 @@ import cbd.domain.DomainKey;
 import cbd.domain.DomainObject;
 
 public class TxManager {
-	HashMap objectPool;
+
+	private static ThreadLocal threadLocal = new ThreadLocal();
+	HashMap<DomainKey,DomainObject> objectPool;
+	
+	public static TxManager getTxManager() {
+		TxManager txManager =  (TxManager)threadLocal.get();
+		if (txManager == null) {
+			txManager = new TxManager();
+			txManager.intPool();
+			threadLocal.set(txManager);
+		}
+		return txManager;
+	}
 	
 	public void intPool() {
-		objectPool = new HashMap();
+		objectPool = new HashMap<DomainKey,DomainObject>();
 	}
 	
 	public void addObjectToPool(DomainObject obj) {
@@ -17,7 +29,7 @@ public class TxManager {
 	}
 	
 	public DomainObject getObjectFromPool(DomainKey key) {
-		return (DomainObject)objectPool.get(key);
+		return objectPool.get(key);
 	}
 	
 	public boolean containsInPool(DomainKey key) {

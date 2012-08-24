@@ -1,12 +1,15 @@
 package cbd.service;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import cbd.dao.DBMapper;
 import cbd.domain.Dept;
+import cbd.domain.DomainKey;
 import cbd.domain.DomainObject;
 import cbd.domain.Emp;
+import cbd.domain.EmpKey;
 
 public class EmpMapper extends DBMapper {
 	protected static final String selectSql = "select " +
@@ -28,16 +31,18 @@ public class EmpMapper extends DBMapper {
 				"and t_emp.emp_no = ?";
 	}
 
-	public DomainObject load(ResultSet rs) throws Exception {
-		DeptMapper deptMapper = new DeptMapper();
-		
-		Dept dept = deptMapper.load(rs);
-		Emp emp = new Emp( rs.getString("t_emp_emp_no"), rs.getString("t_emp_emp_name"), rs.getString("t_emp_position"), dept);
-		
-		return emp;
+	public DomainObject doLoad(ResultSet rs) throws Exception {			
+			DeptMapper deptMapper = new DeptMapper();
+			Dept dept = (Dept)deptMapper.load(rs);
+			Emp emp = new Emp( rs.getString("t_emp_emp_no"), rs.getString("t_emp_emp_name"), rs.getString("t_emp_position"), dept);
+			
+			return emp;		
+	}	
+	
+	public DomainKey getKey(ResultSet rs) throws Exception {
+		return new EmpKey(rs.getString("t_emp_emp_no"));
 	}
-	
-	
+
 	public List<Emp> findEmpsByDept(Dept dept) throws Exception {
 		String findByDeptSql = selectSql +
 				"and t_emp.dept_code = ?";

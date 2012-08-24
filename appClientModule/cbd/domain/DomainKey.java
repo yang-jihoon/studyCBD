@@ -52,8 +52,6 @@ public abstract class DomainKey {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		DomainKey other = (DomainKey) obj;
 		if (!Arrays.equals(keyFields, other.keyFields))
 			return false;
