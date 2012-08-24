@@ -39,9 +39,10 @@ public class DeptServiceTest {
 		EmpService empService = new EmpService();
 		Emp emp = empService.findEmpByKey(new EmpKey("E00001"));
 		DeptService deptService = new DeptService();
-		Dept dept = deptService.findDeptByKey((DeptKey)(emp.getDept().getKey()));
-		dept.setAddress("º°°ü3Ãþ");
+//		Dept dept = deptService.findDeptByKey((DeptKey)(emp.getDept().getKey()));
+//		dept.setAddress("º°°ü3Ãþ");
+//		
+//		Assert.assertEquals("º°°ü3Ãþ", emp.getDept().getAddress());
 		
-		Assert.assertEquals("º°°ü3Ãþ", emp.getDept().getAddress());		
 	}
 }

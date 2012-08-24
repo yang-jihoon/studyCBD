@@ -1,5 +1,6 @@
 package cbd.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cbd.service.EmpService;
@@ -9,11 +10,14 @@ public class Dept extends DomainObject {
 	String deptName;
 	String address;
 	
-	public Dept(String deptCode, String deptName, String address) {
+	List emps;
+	
+	public Dept(String deptCode, String deptName, String address, List emps) {
 		super(new DeptKey(deptCode));
 		this.deptCode = deptCode;
 		this.deptName = deptName;
 		this.address = address;
+		this.emps = emps;
 	}
 
 	public String getDeptCode() {
@@ -44,5 +48,19 @@ public class Dept extends DomainObject {
 
 	public String getDeptName() {
 		return this.deptName;
+	}
+
+	public void addEmp(Emp emp) {
+		if(emps == null) {
+			emps = new ArrayList();
+			if (emps.contains(emp)) {
+				return;
+			}				
+		}
+		emps.add(emp);		
+	}
+
+	public int countEmps() {
+		return (this.emps == null ) ? 0 : this.emps.size();
 	}
 }

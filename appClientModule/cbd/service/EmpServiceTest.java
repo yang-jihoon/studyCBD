@@ -45,7 +45,7 @@ public class EmpServiceTest {
 	@Test
 	public void testFindEmpsByDept() throws Exception {
 		EmpService empService = new EmpService();
-		Dept dept = new Dept("D001", "경리과", "본사11층");
+		Dept dept = new Dept("D001", "경리과", "본사11층",null);
 		List<Emp> emps = empService.findEmpsByDept(dept);
 		
 		Assert.assertEquals(3, emps.size());
